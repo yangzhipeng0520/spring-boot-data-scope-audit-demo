@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.datascope.mapper.CustomerMapper">
+
+    <select id="selectByScope" resultType="com.example.datascope.entity.Customer">
+        select
+            id,
+            customer_name,
+            owner_user_id,
+            dept_id,
+            amount,
+            create_time
+        from customer
+        where dept_id in
+        <foreach collection="deptIds" item="deptId" open="(" separator="," close=")">
+            #{deptId}
+        </foreach>
+        order by id asc
+    </select>
+
+</mapper>
+
